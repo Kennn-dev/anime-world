@@ -1,7 +1,7 @@
 /* eslint-disable global-require */
 module.exports = {
   mode: 'jit',
-  important: true,
+  // important: true,
   purge: {
     enabled: true,
     content: ['./src/**/*.{js,ts,jsx,tsx}'],
@@ -33,9 +33,9 @@ module.exports = {
     extend: {
       colors: {
         primary: '#DC5A5B',
+        'primary-light': '#f14445',
         'bg-dark-layer2': '#201E27',
         'bg-dark-layer1': '#16151D',
-
         gray: {
           100: '#f7fafc',
           200: '#edf2f7',
@@ -59,10 +59,19 @@ module.exports = {
           900: '#2a4365',
         },
       },
+      backgroundImage: {
+        'linear-main':
+          'linear-gradient(77deg,rgba(0,0,0,.7) 0,rgba(0,0,0,0) 85%)',
+        'linear-full':
+          'linear-gradient(77deg,rgba(0,0,0,.6) 0,rgba(0,0,0,.5) 85%)',
+      },
     },
   },
   variants: {
     typography: ['dark'],
   },
-  plugins: [require('@tailwindcss/typography')],
+  plugins: [
+    require('@tailwindcss/typography'),
+    require('@tailwindcss/line-clamp'),
+  ],
 };

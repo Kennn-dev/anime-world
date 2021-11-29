@@ -11,7 +11,11 @@ const Search = (props: ISearch) => {
         {...props}
       />
       <span className=" absolute right-3 top-1/2 -translate-y-1/2">
-        <SearchNormal1 size="24" variant="Outline" color="#DC5A5B" />
+        <SearchNormal1
+          size="24"
+          variant="Outline"
+          color="rgba(113, 128, 150)"
+        />
       </span>
     </div>
   );

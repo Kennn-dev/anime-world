@@ -32,7 +32,7 @@ const DropdownMobile = ({ isOpen }: { isOpen: boolean }) => {
     <div
       className={`${
         isOpen ? 'block' : 'hidden'
-      } sm:hidden px-4 pb-5 w-full  bg-gray-50 text-gray-700 dark:text-gray-50 dark:bg-bg-dark-layer1 `}
+      } sm:hidden px-4 pb-5 w-full  bg-white text-gray-700 dark:text-gray-50 dark:bg-bg-dark-layer1 `}
     >
       <ul className="font-bold gap-8 content-center list-none transition-colors">
         <MenuItem href="/">Home</MenuItem>
@@ -50,7 +50,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
-      <nav className="flex content-center  w-full  bg-gray-50 text-gray-700 dark:text-gray-50 dark:bg-bg-dark-layer1">
+      <nav className="flex content-center  w-full  bg-white text-gray-700 dark:text-gray-50 dark:bg-bg-dark-layer1">
         <div className="flex items-center justify-between container mx-auto py-5 sm:py-0 px-4 sm:px-8">
           <div className="block sm:hidden">
             <HambergerMenu
