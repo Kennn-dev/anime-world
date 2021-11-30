@@ -59,11 +59,12 @@ const Card = ({ data }: { data: IAnime }) => (
 
 interface HomeProps {
   animes: IAnime[];
+  mangas: IAnime[];
 }
-const Index = ({ animes }: HomeProps) => {
-  console.log(animes);
+const Index = ({ animes, mangas }: HomeProps) => {
+  console.log(mangas);
   let swiper = null;
-  if (!animes) {
+  if (!animes || !mangas) {
     swiper = 'Error';
   } else {
     swiper = (
@@ -101,7 +102,9 @@ const Index = ({ animes }: HomeProps) => {
     >
       {swiper}
       <div className="px-[30px]">
-        <h2 className="text-2xl font-bold">Trending</h2>
+        <h2 className="text-2xl font-bold border-l-2 border-primary pl-3">
+          Trending Anime
+        </h2>
         <div className="mt-5 relative ">
           <Swiper
             className="basic-swiper"
@@ -128,6 +131,36 @@ const Index = ({ animes }: HomeProps) => {
           </Swiper>
         </div>
       </div>
+      <div className="mt-8 px-[30px]">
+        <h2 className="text-2xl font-bold border-l-2 border-primary pl-3">
+          Trending Manga
+        </h2>
+        <div className="mt-5 relative ">
+          <Swiper
+            className="basic-swiper"
+            autoHeight
+            modules={[Navigation]}
+            navigation
+            // centeredSlides
+            spaceBetween={14}
+            slidesPerView={2.3}
+            breakpoints={{
+              640: {
+                slidesPerView: 3.3,
+              },
+              1024: {
+                slidesPerView: 5.3,
+              },
+            }}
+          >
+            {mangas.map((manga: IAnime) => (
+              <SwiperSlide key={manga.id}>
+                <AnimeCard data={manga} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+      </div>
     </Main>
   );
 };
@@ -136,11 +169,14 @@ export default Index;
 
 export const getStaticProps: GetStaticProps = async () => {
   try {
-    const res = await fetch(`${process.env.API_URL}/trending/anime`);
-    const data = await res.json();
+    const animeRes = await fetch(`${process.env.API_URL}/trending/anime`);
+    const mangaRes = await fetch(`${process.env.API_URL}/trending/manga`);
+    const { data: animes } = await animeRes.json();
+    const { data: mangas } = await mangaRes.json();
     return {
       props: {
-        animes: data.data,
+        animes,
+        mangas,
       },
     };
   } catch (error) {

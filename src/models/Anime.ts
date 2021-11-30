@@ -7,6 +7,7 @@ export default interface IAnime {
     ageRatingGuide: string;
     titles: {
       en: string;
+      en_us: string;
       en_jp: string;
       ja_jp: string;
     };

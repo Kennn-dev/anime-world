@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 
+import Footer from '../components/footer';
 import Navbar from '../components/header/navbar';
 
 type IMainProps = {
@@ -13,7 +14,7 @@ const Main = (props: IMainProps) => {
       {props.meta}
       <Navbar />
       <div className="container px-8 mx-auto mt-10">{props.children}</div>
-      <footer className="py-10 ">This is footer</footer>
+      <Footer />
     </main>
   );
 };

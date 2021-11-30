@@ -1,7 +1,5 @@
-Features : 
-[x] Dark mode
-[] Search
-[] Sorting
-[] Filter
-[] Detail Film
-[] Rating
+## Features : 
+[✅] Dark mode <br />
+[] Search <br />
+[] Filter <br />
+[] Detail Film <br />
