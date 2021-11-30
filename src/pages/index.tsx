@@ -1,4 +1,4 @@
-import { GetServerSideProps } from 'next';
+import { GetStaticProps } from 'next';
 import Image from 'next/image';
 import { Autoplay, Navigation } from 'swiper';
 import 'swiper/css/bundle';
@@ -134,7 +134,7 @@ const Index = ({ animes }: HomeProps) => {
 
 export default Index;
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   try {
     const res = await fetch(`${process.env.API_URL}/trending/anime`);
     const data = await res.json();
