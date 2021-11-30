@@ -14,10 +14,7 @@ const formatDate = (date: string): string => date.substring(0, 4);
 
 const Card = ({ data }: { data: IAnime }) => (
   <div>
-    <div
-      style={{ height: 450 }}
-      className="p-5 rounded-lg overflow-hidden bottom-4 relative bg-top w-full  bg-no-repeat bg-gradient-to-b"
-    >
+    <div className="h-[500px] sm:h-[450px] p-5 rounded-lg overflow-hidden bottom-4 relative bg-top w-full  bg-no-repeat bg-gradient-to-b">
       <Image
         src={data.attributes.coverImage.large}
         layout="fill"
@@ -30,10 +27,10 @@ const Card = ({ data }: { data: IAnime }) => (
           <span className="bg-linear-full py-1 px-2 rounded-md text-gray-300 font-bold">
             {data.attributes.ageRatingGuide}
           </span>
-          <h1 className="text-4xl font-bold ">
+          <h1 className="text-2xl xs:text-4xl font-bold ">
             {data.attributes.titles.en || data.attributes.titles.en_jp}
           </h1>
-          <div className="flex gap-5 items-center text-gray-200">
+          <div className="flex-wrap xs:flex-nowrap flex gap-5 items-center text-gray-200">
             <span className="font-bold">
               {formatDate(data.attributes.startDate)}{' '}
             </span>{' '}
@@ -113,10 +110,10 @@ const Index = ({ animes, mangas }: HomeProps) => {
             navigation
             // centeredSlides
             spaceBetween={14}
-            slidesPerView={2.3}
+            slidesPerView={1.3}
             breakpoints={{
               640: {
-                slidesPerView: 3.3,
+                slidesPerView: 2.3,
               },
               1024: {
                 slidesPerView: 5.3,
@@ -143,10 +140,10 @@ const Index = ({ animes, mangas }: HomeProps) => {
             navigation
             // centeredSlides
             spaceBetween={14}
-            slidesPerView={2.3}
+            slidesPerView={1.3}
             breakpoints={{
               640: {
-                slidesPerView: 3.3,
+                slidesPerView: 2.3,
               },
               1024: {
                 slidesPerView: 5.3,

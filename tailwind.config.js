@@ -31,6 +31,9 @@ module.exports = {
       '6xl': '4rem',
     },
     extend: {
+      screens: {
+        xs: '475px',
+      },
       colors: {
         primary: '#DC5A5B',
         'primary-light': '#f14445',

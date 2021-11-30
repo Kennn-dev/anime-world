@@ -95,7 +95,8 @@ table {
   top: unset;
 
   bottom: 12%;
- 
+	
+	visibility: hidden;
 }
 .swiper-home > .swiper-button-next {
   right: 8%;
@@ -106,10 +107,13 @@ table {
   right: 25%;
 }
 @media (min-width: 640px) { 
-	 .basic-swiper {
-    width: 100%;
-  }
+	.swiper-home .swiper-button-next,
+.swiper-home .swiper-button-prev {
+  
+	visibility: visible;
+}
  }
+
 @media (min-width: 768px) {
 	 .basic-swiper {
     width:100%;
@@ -123,8 +127,3 @@ table {
     bottom: 13%;
   }
 }
-@media (min-width: 1024px) { 
-	 .basic-swiper {
-    width: 100%;
-  }
- }
