@@ -7,7 +7,9 @@ class MyDocument extends Document {
   render() {
     return (
       <Html lang={AppConfig.locale}>
-        <Head />
+        <Head>
+          <link rel="shortcut icon" href="/super_mario_64_icon.ico" />
+        </Head>
 
         <body>
           <Main />

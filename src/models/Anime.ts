@@ -14,6 +14,7 @@ export default interface IAnime {
     canonicalTitle: string;
     averageRating: string;
     favoritesCount: number;
+    userCount: number;
     startDate: string;
     endDate: string;
     popularityRank: number;
@@ -31,4 +32,5 @@ export default interface IAnime {
     nsfw: boolean;
   };
   id: string;
+  included?: any[];
 }

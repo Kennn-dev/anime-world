@@ -34,6 +34,9 @@ a {
 a:hover {
 }
 
+.bold-svg path {
+	stroke-width: 2 !important;
+}
 table {
   border-spacing: 0;
   border-collapse: collapse;

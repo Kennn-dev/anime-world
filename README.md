@@ -2,4 +2,4 @@
 [✅] Dark mode <br />
 [] Search <br />
 [] Filter <br />
-[] Detail Film <br />
+[✅] Detail Film <br />

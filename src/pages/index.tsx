@@ -4,64 +4,72 @@ import { Autoplay, Navigation } from 'swiper';
 import 'swiper/css/bundle';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import AnimeCard from '../components/AnimeCard';
 import Button from '../components/buttons/index';
+import SliderAnime from '../components/SliderAnime';
 import { Meta } from '../layout/Meta';
 import IAnime from '../models/Anime';
 import { Main } from '../templates/Main';
+import getHomeData from '../utils/fetch/homeData';
+import formatDate from '../utils/formatYear';
 
-const formatDate = (date: string): string => date.substring(0, 4);
-
-const Card = ({ data }: { data: IAnime }) => (
-  <div>
-    <div className="h-[500px] sm:h-[450px] p-5 rounded-lg overflow-hidden bottom-4 relative bg-top w-full  bg-no-repeat bg-gradient-to-b">
-      <Image
-        src={data.attributes.coverImage.large}
-        layout="fill"
-        alt="Image"
-        priority
-        objectFit="cover"
-      />
-      <div className="absolute inset-0 bg-linear-full lg:bg-linear-main ">
-        <div className="w-full lg:w-1/2 absolute left-0 bottom-0 p-10 text-white">
-          <span className="bg-linear-full py-1 px-2 rounded-md text-gray-300 font-bold">
-            {data.attributes.ageRatingGuide}
-          </span>
-          <h1 className="text-2xl xs:text-4xl font-bold ">
-            {data.attributes.titles.en || data.attributes.titles.en_jp}
-          </h1>
-          <div className="flex-wrap xs:flex-nowrap flex gap-5 items-center text-gray-200">
-            <span className="font-bold">
-              {formatDate(data.attributes.startDate)}{' '}
-            </span>{' '}
-            <p>
-              Rating :{' '}
-              <span className="font-bold">{data.attributes.averageRating}</span>{' '}
+const Card = ({ data }: { data: IAnime }) => {
+  return (
+    <div>
+      <div className=" h-[500px] sm:h-[450px] p-5 rounded-lg overflow-hidden bottom-4 relative bg-top w-full  bg-no-repeat bg-gradient-to-b">
+        <Image
+          src={data.attributes.coverImage.large}
+          layout="fill"
+          alt="Image"
+          priority
+          objectFit="cover"
+        />
+        <div className="absolute inset-0 bg-linear-full lg:bg-linear-main ">
+          <div className="w-full lg:w-1/2 absolute left-0 bottom-0 p-10 text-white">
+            <span className="bg-linear-full py-1 px-2 rounded-md text-gray-300 font-bold">
+              {data.attributes.ageRatingGuide}
+            </span>
+            <h1 className="text-2xl xs:text-4xl font-bold ">
+              {data.attributes.titles.en || data.attributes.titles.en_jp}
+            </h1>
+            <div className="flex-wrap xs:flex-nowrap flex gap-5 items-center text-gray-200">
+              <span className="font-bold">
+                {formatDate(data.attributes.startDate)}{' '}
+              </span>{' '}
+              <p>
+                Rating :{' '}
+                <span className="font-bold">
+                  {data.attributes.averageRating}
+                </span>{' '}
+              </p>
+              <p>
+                {' '}
+                <span className="font-bold">
+                  {data.attributes.episodeCount}{' '}
+                </span>
+                {' Episode'}
+              </p>
+            </div>
+            <p className="mt-5 line-clamp-3 leading-relaxed text-gray-100">
+              {data.attributes.synopsis}
             </p>
-            <p>
-              {' '}
-              <span className="font-bold">{data.attributes.episodeCount} </span>
-              {' Episode'}
-            </p>
+            <Button className="mt-5">View Now</Button>
           </div>
-          <p className="mt-5 line-clamp-3 leading-relaxed text-gray-100">
-            {data.attributes.synopsis}
-          </p>
-          <Button className="mt-5">View Now</Button>
         </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 interface HomeProps {
   animes: IAnime[];
-  mangas: IAnime[];
+  popular: IAnime[];
+  upcoming: IAnime[];
+  rating: IAnime[];
 }
-const Index = ({ animes, mangas }: HomeProps) => {
-  console.log(mangas);
+const Index = ({ animes, popular, upcoming, rating }: HomeProps) => {
+  // console.log();
   let swiper = null;
-  if (!animes || !mangas) {
+  if (!animes) {
     swiper = 'Error';
   } else {
     swiper = (
@@ -99,81 +107,28 @@ const Index = ({ animes, mangas }: HomeProps) => {
     >
       {swiper}
       <div className="px-[30px]">
-        <h2 className="text-2xl font-bold border-l-2 border-primary pl-3">
-          Trending Anime
-        </h2>
-        <div className="mt-5 relative ">
-          <Swiper
-            className="basic-swiper"
-            autoHeight
-            modules={[Navigation]}
-            navigation
-            // centeredSlides
-            spaceBetween={14}
-            slidesPerView={1.3}
-            breakpoints={{
-              640: {
-                slidesPerView: 2.3,
-              },
-              1024: {
-                slidesPerView: 5.3,
-              },
-            }}
-          >
-            {animes.map((anime: IAnime) => (
-              <SwiperSlide key={anime.id}>
-                <AnimeCard data={anime} />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
+        <SliderAnime title="Most Popular Anime" data={popular} />
       </div>
       <div className="mt-8 px-[30px]">
-        <h2 className="text-2xl font-bold border-l-2 border-primary pl-3">
-          Trending Manga
-        </h2>
-        <div className="mt-5 relative ">
-          <Swiper
-            className="basic-swiper"
-            autoHeight
-            modules={[Navigation]}
-            navigation
-            // centeredSlides
-            spaceBetween={14}
-            slidesPerView={1.3}
-            breakpoints={{
-              640: {
-                slidesPerView: 2.3,
-              },
-              1024: {
-                slidesPerView: 5.3,
-              },
-            }}
-          >
-            {mangas.map((manga: IAnime) => (
-              <SwiperSlide key={manga.id}>
-                <AnimeCard data={manga} />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
+        <SliderAnime title="Highest Rate Anime" data={rating} />
+      </div>
+      <div className="mt-8 px-[30px]">
+        <SliderAnime title="Top Upcoming Anime" data={upcoming} />
       </div>
     </Main>
   );
 };
 
 export default Index;
-
 export const getStaticProps: GetStaticProps = async () => {
   try {
-    const animeRes = await fetch(`${process.env.API_URL}/trending/anime`);
-    const mangaRes = await fetch(`${process.env.API_URL}/trending/manga`);
-    const { data: animes } = await animeRes.json();
-    const { data: mangas } = await mangaRes.json();
+    const { animes, popular, upcoming, rating } = await getHomeData();
     return {
       props: {
         animes,
-        mangas,
+        popular,
+        upcoming,
+        rating,
       },
     };
   } catch (error) {
