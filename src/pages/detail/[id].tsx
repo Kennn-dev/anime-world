@@ -1,7 +1,6 @@
 import { ReactNode } from 'react';
 
 import { Heart, Profile2User, Rank } from 'iconsax-react';
-import { GetServerSideProps } from 'next';
 import Image from 'next/image';
 
 import { Meta } from '../../layout/Meta';
@@ -10,6 +9,11 @@ import ICharacter from '../../models/Character';
 import { Main } from '../../templates/Main';
 import formatDate from '../../utils/formatYear';
 
+type Params = {
+  params: {
+    id: string | number;
+  };
+};
 interface DetailAnimeProps {
   anime: {
     data: IAnime;
@@ -75,7 +79,6 @@ const DetailAnime = ({ anime, casting }: DetailAnimeProps) => {
     size: '24',
     color: '#a0aec0',
   };
-  console.log(casting);
   return (
     <Main
       meta={
@@ -192,8 +195,8 @@ const DetailAnime = ({ anime, casting }: DetailAnimeProps) => {
 
 export default DetailAnime;
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { id } = context.params;
+export const getServerSideProps = async ({ params }: Params) => {
+  const { id } = params;
   try {
     const animeRes = await fetch(
       `${process.env.API_URL}/anime/${id}?include=categories,genres`
