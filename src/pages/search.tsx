@@ -69,7 +69,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       `${
         process.env.API_URL
       }/anime/?filter[text]=${q}&page[limit]=${PAGE_NUMBER}&page[offset]=${
-        page === 1 ? page - 1 : Number(page - 1) * PAGE_NUMBER
+        page === 1 ? page - 1 : (Number(page) - 1) * PAGE_NUMBER
       }`
     );
     const anime = await animeRes.json();
