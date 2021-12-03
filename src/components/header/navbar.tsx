@@ -36,8 +36,9 @@ const DropdownMobile = ({ isOpen }: { isOpen: boolean }) => {
     >
       <ul className="font-bold gap-8 content-center list-none transition-colors">
         <MenuItem href="/">Home</MenuItem>
-        <MenuItem href="/about">About</MenuItem>
-        <MenuItem href="/settings">Settings</MenuItem>
+        <MenuItem href="/#">About</MenuItem>
+        <MenuItem href="/#">Settings</MenuItem>
+
         <div className="flex items-center justify-between gap-8 mt-5 ">
           <p className="text-opacity-80 opacity-70">Dark Mode</p>
           <ToggleButton />
@@ -77,7 +78,11 @@ const Navbar = () => {
             </ul>
           </div>
           <div className="flex items-center gap-5 sm:gap-8">
-            <Search width={200} placeholder="Search Anime ..." />
+            <Search
+              width={200}
+              className="hidden sm:inline-block"
+              placeholder="Search Anime ..."
+            />
             <span className="hidden md:flex gap-3 text-xl">
               ⛅
               <ToggleButton />

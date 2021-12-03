@@ -21,7 +21,7 @@ interface SearchProps {
 }
 
 const Search = ({ anime, query, page }: SearchProps) => {
-  // console.log(page);
+  console.log(anime);
   const router = useRouter();
   const { theme } = useTheme();
   const classPaginate = `${

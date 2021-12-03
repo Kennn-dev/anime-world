@@ -13,7 +13,7 @@ const Main = (props: IMainProps) => {
     <main className="bg-gray-50 dark:bg-bg-dark-layer2">
       {props.meta}
       <Navbar />
-      <div className="container px-0 sm:px-8 mx-auto mt-10">
+      <div className="container px-0 sm:px-8 mx-auto mt-10 text-gray-700 dark:text-gray-50 ">
         {props.children}
       </div>
       <Footer />
