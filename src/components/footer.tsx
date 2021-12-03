@@ -5,6 +5,7 @@ const Footer = () => {
   const iconProps = {
     style: {
       cursor: 'pointer',
+      marginLeft: '1.25rem',
     },
     color: '#DC5A5B',
     height: '24px',
@@ -24,7 +25,7 @@ const Footer = () => {
           />
           <h1 className="invisible xs:visible">Anime World</h1>
         </div>
-        <div className="flex gap-5 pr-[30px]">
+        <div className="flex  pr-[30px] first:ml-0">
           <a
             href="https://github.com/Kennn-dev/anime-world"
             target="_blank"

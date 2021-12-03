@@ -20,17 +20,20 @@ interface DetailAnimeProps {
     included: any[];
   };
   casting: {
-    included: ICharacter[];
+    included?: ICharacter[];
   };
 }
 interface IconTextProps {
   icon: ReactNode;
+  value: string | number;
   text: string;
 }
 const IconWithText = (props: IconTextProps) => (
-  <div className="flex items-center gap-2 font-bold">
+  <div className="flex items-center font-bold">
     <span>{props.icon}</span>
-    <p>{props.text}</p>
+    <p className="ml-2">
+      {props.value} <span className="hidden md:inline">{props.text}</span>
+    </p>
   </div>
 );
 const Character = ({ data }: { data: ICharacter }) => (
@@ -55,7 +58,7 @@ const Character = ({ data }: { data: ICharacter }) => (
   </div>
 );
 const Genres = ({ text }: { text: string }) => (
-  <div className="cursor-default px-2 py-1 rounded-lg font-bold hover:bg-gray-900 text-gray-100 bg-gray-700 transition-all">
+  <div className="mt-2 cursor-default px-2 py-1 rounded-lg font-bold hover:bg-gray-900 text-gray-100 bg-gray-700 transition-all">
     {text}
   </div>
 );
@@ -68,28 +71,26 @@ const Category = ({
 }) => (
   <div
     title={description}
-    className="cursor-default px-2 py-1 rounded-lg font-bold hover:bg-gray-900 text-gray-100 bg-gray-700 transition-all"
+    className="mt-2 cursor-default px-2 py-1 rounded-lg font-bold hover:bg-gray-900 text-gray-100 bg-gray-700 transition-all"
   >
     {title}
   </div>
 );
 const DetailAnime = ({ anime, casting }: DetailAnimeProps) => {
   const iconProps = {
-    className: 'bold-svg',
+    className: 'bold-svg ml-4',
     size: '24',
     color: '#a0aec0',
   };
+  const title =
+    anime.data.attributes.titles.en ||
+    anime.data.attributes.titles.en_us ||
+    anime.data.attributes.titles.en_jp ||
+    anime.data.attributes.titles.ja_jp;
   return (
-    <Main
-      meta={
-        <Meta
-          title={anime.data.attributes.titles.en}
-          description="Something ...."
-        />
-      }
-    >
-      <div className=" flex-wrap lg:flex-nowrap flex gap-8 ">
-        <div className="flex-1">
+    <Main meta={<Meta title={title} description="Something ...." />}>
+      <div className="px-[30px] flex-wrap lg:flex-nowrap flex gap-8">
+        <div className="flex-1 ">
           <div className="w-full overflow-hidden h-auto rounded-lg">
             <iframe
               width="100%"
@@ -102,28 +103,32 @@ const DetailAnime = ({ anime, casting }: DetailAnimeProps) => {
             ></iframe>
           </div>
           <h1 className="text-3xl font-bold mt-5">
-            {anime.data.attributes.titles.en}
+            {title}
             <span className="text-xl text-gray-600 dark:text-gray-500 font-bold">
               {`  ( ${formatDate(anime.data.attributes.startDate)} )`}
             </span>
           </h1>
           <div className="mt-3">
-            <div className="flex flex-wrap md:flex-nowrap gap-3 items-center justify-between text-gray-600 dark:text-gray-500">
+            <div className="flex flex-wrap md:flex-nowrap items-center justify-between text-gray-600 dark:text-gray-500">
               <p className="font-bold">
-                Start date at {anime.data.attributes.startDate}
+                <span className="hidden md:inline">Start date at</span>{' '}
+                {anime.data.attributes.startDate}
               </p>
-              <div className="flex items-center gap-4">
+              <div className="ml-3 flex items-center first:ml-0">
                 <IconWithText
                   icon={<Heart {...iconProps} />}
-                  text={`${anime.data.attributes.favoritesCount} favourite`}
+                  value={anime.data.attributes.favoritesCount}
+                  text={`favourite`}
                 />
                 <IconWithText
                   icon={<Profile2User {...iconProps} />}
-                  text={`${anime.data.attributes.userCount} views`}
+                  value={anime.data.attributes.userCount}
+                  text={`views`}
                 />
                 <IconWithText
                   icon={<Rank {...iconProps} />}
-                  text={`Rank ${anime.data.attributes.popularityRank}`}
+                  value={anime.data.attributes.popularityRank}
+                  text={`Rank`}
                 />
               </div>
             </div>
@@ -135,16 +140,17 @@ const DetailAnime = ({ anime, casting }: DetailAnimeProps) => {
             Characters
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  mt-5 gap-2">
-            {casting?.included.map((char) => (
-              <>
-                <div className="col-span-1">
-                  <Character data={char} key={char.id} />
-                </div>
-              </>
-            ))}
+            {casting.included &&
+              casting?.included.map((char) => (
+                <>
+                  <div className="col-span-1">
+                    <Character data={char} key={char.id} />
+                  </div>
+                </>
+              ))}
           </div>
         </div>
-        <div className="w-full lg:flex-shrink-0 lg:w-[350px] space-y-8">
+        <div className="w-full  lg:flex-shrink-0 lg:w-[350px] space-y-8">
           <div className="relative h-[480px]  overflow-hidden rounded-lg">
             <Image
               alt={anime.data.attributes.slug}
@@ -158,7 +164,7 @@ const DetailAnime = ({ anime, casting }: DetailAnimeProps) => {
             <h2 className="text-2xl font-bold border-l-2 border-primary pl-3">
               Genres
             </h2>
-            <div className="mt-5 flex gap-2 flex-wrap">
+            <div className="mt-5 flex space-x-2 flex-wrap first:ml-2">
               {anime.included &&
                 anime.included
                   .filter((a: any) => a.type === 'genres')
@@ -174,7 +180,7 @@ const DetailAnime = ({ anime, casting }: DetailAnimeProps) => {
             <h2 className="text-2xl font-bold border-l-2 border-primary pl-3">
               Categories
             </h2>
-            <div className="mt-5 flex gap-2 flex-wrap">
+            <div className="mt-5 flex space-x-2 flex-wrap first:ml-2">
               {anime.included &&
                 anime.included
                   .filter((a: any) => a.type === 'categories')

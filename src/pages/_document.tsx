@@ -8,7 +8,7 @@ class MyDocument extends Document {
     return (
       <Html lang={AppConfig.locale}>
         <Head>
-          <link rel="shortcut icon" href="/super_mario_64_icon.ico" />
+          <link rel="shortcut icon" href="/favicon.ico" />
         </Head>
 
         <body>
