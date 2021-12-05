@@ -164,7 +164,7 @@ const DetailAnime = ({ anime, casting }: DetailAnimeProps) => {
             <h2 className="text-2xl font-bold border-l-2 border-primary pl-3">
               Genres
             </h2>
-            <div className="mt-5 flex space-x-2 flex-wrap first:ml-2">
+            <div className="mt-5 flex space-x-2 flex-wrap">
               {anime.included &&
                 anime.included
                   .filter((a: any) => a.type === 'genres')
@@ -180,7 +180,7 @@ const DetailAnime = ({ anime, casting }: DetailAnimeProps) => {
             <h2 className="text-2xl font-bold border-l-2 border-primary pl-3">
               Categories
             </h2>
-            <div className="mt-5 flex space-x-2 flex-wrap first:ml-2">
+            <div className="mt-5 flex space-x-2 flex-wrap">
               {anime.included &&
                 anime.included
                   .filter((a: any) => a.type === 'categories')

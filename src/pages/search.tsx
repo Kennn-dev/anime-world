@@ -36,9 +36,13 @@ const Search = ({ anime, query, page }: SearchProps) => {
       meta={<Meta title={`${query} | Search`} description="Search Anime" />}
     >
       <div className="container mx-auto px-[30px]">
-        <h1 className="text-2xl font-bold">
-          Search result for <span className="text-primary">{query}</span>
-        </h1>
+        <div className="flex justify-between">
+          <h1 className="text-2xl font-bold">
+            {anime.data.length > 0 ? 'Search' : 'No'} result for{' '}
+            <span className="text-primary">{query}</span>
+          </h1>
+          <option value=""></option>
+        </div>
         <div className="grid grid-cols-2  md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-7 mt-8">
           {anime.data.map((ani) => (
             <div key={ani.id} className="col-span-1">
@@ -52,6 +56,7 @@ const Search = ({ anime, query, page }: SearchProps) => {
             onPageChange={handlePageClick}
             className={classPaginate}
             pageCount={Math.floor(anime.meta.count / PAGE_NUMBER)}
+            renderOnZeroPageCount={() => null}
           />
         </div>
       </div>
@@ -62,13 +67,13 @@ const Search = ({ anime, query, page }: SearchProps) => {
 export default Search;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { q } = context.query;
-  const page = context.query.page || 1;
   try {
+    const { q } = context.query;
+    const page = context.query.page || 1;
     const animeRes = await fetch(
-      `${
-        process.env.API_URL
-      }/anime/?filter[text]=${q}&page[limit]=${PAGE_NUMBER}&page[offset]=${
+      `${process.env.API_URL}/anime/?${
+        q && `filter[text]=${q}&`
+      }page[limit]=${PAGE_NUMBER}&page[offset]=${
         page === 1 ? page - 1 : (Number(page) - 1) * PAGE_NUMBER
       }`
     );

@@ -41,6 +41,12 @@ table {
   border-spacing: 0;
   border-collapse: collapse;
 }
+
+/* select */
+.select-selected {
+  background-color: #dc5a5aaf;
+}
+
 /* SWIPER CUSTOM */
 
 .swiper .swiper-button-disabled {
@@ -143,6 +149,9 @@ table {
 	width : fit-content;
 
 	font-weight: bold;	
+}
+.pagination .disabled {
+	visibility: hidden;
 }
 .pagination li {
 	padding :8px 16px;

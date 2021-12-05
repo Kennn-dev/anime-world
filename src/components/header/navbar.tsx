@@ -73,7 +73,7 @@ const Navbar = () => {
             />
             <ul className="hidden sm:flex font-bold gap-8 content-center  ml-10 list-none transition-colors">
               <MenuItem href="/">Home</MenuItem>
-              <MenuItem href="/about">About</MenuItem>
+              <MenuItem href="/search">Search</MenuItem>
               <MenuItem href="/settings">Settings</MenuItem>
             </ul>
           </div>
